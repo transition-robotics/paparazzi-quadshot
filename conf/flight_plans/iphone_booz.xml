@@ -1,6 +1,6 @@
 <!DOCTYPE flight_plan SYSTEM "flight_plan.dtd">
 
-<flight_plan alt="152" ground_alt="147" lat0="43 33 50.83" lon0="1 28 52.61" max_dist_from_home="400" name="Booz Test Enac" security_height="2">
+<flight_plan alt="152" ground_alt="147" lat0="43 33 50.83" lon0="1 28 52.61" max_dist_from_home="400" name="Followme IPhone" security_height="2">
   <header>
 #include "autopilot.h"
   </header>
@@ -9,6 +9,7 @@
     <waypoint name="CLIMB" x="0.0" y="5.0"/>
     <waypoint name="STDBY" x="-2.0" y="-5.0"/>
     <waypoint name="IPHONE" x="0.0" y="5.0"/>
+    <waypoint name="TD" x="5.6" y="-10.9"/>
   </waypoints>
   <blocks>
     <block name="Wait GPS">
@@ -36,8 +37,19 @@
     <block name="Standby" strip_button="Standby" strip_icon="home.png">
       <stay wp="STDBY"/>
     </block>
-    <block name="Iphone" strip_button="Standby" strip_icon="home.png">
+    <block name="IPhone" strip_button="IPhone" strip_icon="home.png">
       <stay wp="IPHONE"/>
+    </block>
+    <block name="land here" strip_button="Land Here" strip_icon="land-right.png">
+      <call fun="NavSetWaypointHere(WP_TD)"/>
+    </block>
+    <block name="land">
+      <go wp="TD"/>
+    </block>
+    <block name="flare">
+      <exception cond="NavDetectGround()" deroute="Holding point"/>
+      <call fun="NavStartDetectGround()"/>
+      <stay climb="-0.8" vmode="climb" wp="TD"/>
     </block>
   </blocks>
 </flight_plan>
