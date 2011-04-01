@@ -228,3 +228,15 @@ ap.srcs += $(SRC_FIRMWARE)/navigation.c
 # or
 # nothing
 #
+#
+SRC_FMS=fms
+
+overo_gps_test.ARCHDIR  = omap
+overo_gps_test.LDFLAGS += -levent -lm
+overo_gps_test.CFLAGS  += -I$(ACINCLUDE) -I. -I$(PAPARAZZI_HOME)/var/include
+overo_gps_test.CFLAGS  += -DOVERO_LINK_MSG_UP=AutopilotMessageGPSUp -DOVERO_LINK_MSG_DOWN=AutopilotMessageGPSDown
+overo_gps_test.srcs     = $(SRC_FMS)/overo_gps_test.c
+overo_gps_test.CFLAGS  += -DFMS_PERIODIC_FREQ=512
+overo_gps_test.srcs    += $(SRC_FMS)/fms_periodic.c
+overo_gps_test.srcs    += $(SRC_FMS)/fms_spi_link.c
+overo_gps_test.srcs    += $(SRC_FMS)/fms_network.c

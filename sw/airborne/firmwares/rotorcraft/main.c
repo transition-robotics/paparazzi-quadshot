@@ -56,6 +56,9 @@
 #include "subsystems/ins.h"
 
 #include "firmwares/rotorcraft/main.h"
+#include "lisa/lisa_overo_link.h"
+#include "math/pprz_geodetic_int.h"
+#include "generated/flight_plan.h"
 
 #ifdef SITL
 #include "nps_autopilot_booz.h"
@@ -100,6 +103,7 @@ STATIC_INLINE void main_init( void ) {
   electrical_init();
 
   actuators_init();
+  overo_link_init();
   radio_control_init();
 
 #if DATALINK == XBEE
@@ -131,6 +135,29 @@ STATIC_INLINE void main_init( void ) {
 
 }
 
+static inline void on_overo_link_lost(void) { }
+static inline void on_overo_link_crc_failed(void) { }
+
+static inline void on_overo_link_msg_received(void)
+{
+   uint8_t wp_id = WP_IPHONE;
+
+   LED_TOGGLE(4);
+   LED_TOGGLE(5);
+
+   struct LlaCoor_i lla;
+   struct EnuCoor_i enu;
+
+   lla.lat = INT32_RAD_OF_DEG(EM7RAD_OF_RAD(overo_link.down.msg.lat));
+   lla.lon = INT32_RAD_OF_DEG(EM7RAD_OF_RAD(overo_link.down.msg.lon));
+   lla.alt = DL_MOVE_WP_alt(dl_buffer) - ins_ltp_def.hmsl + ins_ltp_def.lla.alt;
+   enu_of_lla_point_i(&enu,&ins_ltp_def,&lla);
+   enu.x = POS_BFP_OF_REAL(enu.x)/100;
+   enu.y = POS_BFP_OF_REAL(enu.y)/100;
+   enu.z = POS_BFP_OF_REAL(enu.z)/100;
+   VECT3_ASSIGN(waypoints[wp_id], enu.x, enu.y, enu.z);
+   DOWNLINK_SEND_WP_MOVED_ENU(DefaultChannel, &wp_id, &enu.x, &enu.y, &enu.z);
+}
 
 STATIC_INLINE void main_periodic( void ) {
 
@@ -180,6 +207,7 @@ STATIC_INLINE void main_periodic( void ) {
   if (autopilot_in_flight) {
     RunOnceEvery(512, { autopilot_flight_time++; datalink_time++; });
   }
+  OveroLinkPeriodic(on_overo_link_lost);
 
 }
 
@@ -202,6 +230,8 @@ STATIC_INLINE void main_event( void ) {
 #ifdef FAILSAFE_GROUND_DETECT
   DetectGroundEvent();
 #endif
+
+  OveroLinkEvent(on_overo_link_msg_received, on_overo_link_crc_failed);
 
   modules_event_task();
 
