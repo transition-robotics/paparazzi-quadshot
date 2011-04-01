@@ -199,6 +199,17 @@ struct __attribute__ ((packed)) AutopilotMessagePTStream
 	uint8_t pkg_data[SPISTREAM_PACKAGE_SIZE];
 };
 
+struct __attribute__ ((packed)) AutopilotMessageGPSUp
+{
+	uint8_t foo;
+};
+
+struct __attribute__ ((packed)) AutopilotMessageGPSDown
+{
+	int32_t x, y;
+};
+
+
 /* Union for computing size of SPI transfer (largest of either up or down message) */
 union AutopilotMessage {
   struct OVERO_LINK_MSG_UP msg_up;
