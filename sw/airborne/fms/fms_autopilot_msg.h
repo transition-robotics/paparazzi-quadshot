@@ -206,7 +206,7 @@ struct __attribute__ ((packed)) AutopilotMessageGPSUp
 
 struct __attribute__ ((packed)) AutopilotMessageGPSDown
 {
-	int32_t x, y;
+  double lat, lon;
 };
 
 
