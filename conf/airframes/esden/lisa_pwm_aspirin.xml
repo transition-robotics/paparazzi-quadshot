@@ -38,7 +38,7 @@
 
 
   <section name="SUPERVISION" prefix="SUPERVISION_">
-    <define name="MIN_MOTOR" value="1090"/>
+    <define name="MIN_MOTOR" value="1100"/>
     <define name="MAX_MOTOR" value="2000"/>
     <define name="TRIM_A" value="0"/>
     <define name="TRIM_E" value="0"/>
@@ -52,9 +52,9 @@
   </section>
 
   <section name="IMU" prefix="IMU_">
-    <define name="GYRO_P_NEUTRAL" value="27"/>
-    <define name="GYRO_Q_NEUTRAL" value="-10"/>
-    <define name="GYRO_R_NEUTRAL" value="20"/>
+    <define name="GYRO_P_NEUTRAL" value="93"/>
+    <define name="GYRO_Q_NEUTRAL" value="131"/>
+    <define name="GYRO_R_NEUTRAL" value="-25"/>
     <define name="GYRO_P_SENS" value="5.0" integer="16"/>
     <define name="GYRO_Q_SENS" value="5.0" integer="16"/>
     <define name="GYRO_R_SENS" value="5.0" integer="16"/>
@@ -71,13 +71,13 @@
     <define name="ACCEL_XY_SENS" value="0.0" integer="16"/>
     <define name="ACCEL_XZ_SENS" value="0.0" integer="16"/>
     <define name="ACCEL_YZ_SENS" value="0.0" integer="16"/>
-    
-    <define name="MAG_X_NEUTRAL" value="0"/>
-    <define name="MAG_Y_NEUTRAL" value="0"/>
-    <define name="MAG_Z_NEUTRAL" value="0"/>
-    <define name="MAG_X_SENS" value="1." integer="16"/>
-    <define name="MAG_Y_SENS" value="1." integer="16"/>
-    <define name="MAG_Z_SENS" value="1." integer="16"/>
+
+    <define name="MAG_X_NEUTRAL" value="-21"/>
+    <define name="MAG_Y_NEUTRAL" value="10"/>
+    <define name="MAG_Z_NEUTRAL" value="12"/>
+    <define name="MAG_X_SENS" value="3.17378921476" integer="16"/>
+    <define name="MAG_Y_SENS" value="3.14663275967" integer="16"/>
+    <define name="MAG_Z_SENS" value="3.26531022727" integer="16"/>
     <define name="MAG_XY_SENS" value="0.0" integer="16"/>
     <define name="MAG_XZ_SENS" value="0.0" integer="16"/>
     <define name="MAG_YZ_SENS" value="0.0" integer="16"/>
@@ -91,7 +91,7 @@
  <section name="AUTOPILOT">
    <define name="MODE_MANUAL" value="AP_MODE_ATTITUDE_DIRECT"/>
    <define name="MODE_AUTO1"  value="AP_MODE_ATTITUDE_RC_CLIMB"/>
-   <define name="MODE_AUTO2"  value="AP_MODE_HOVER_Z_HOLD"/>
+   <define name="MODE_AUTO2"  value="AP_MODE_HOVER_CLIMB"/>
  </section>
 
  <section name="BAT">
@@ -138,12 +138,12 @@
     <define name="REF_MAX_RDOT" value="RadOfDeg(1800.)"/>
 
     <!-- feedback -->
-    <define name="PHI_PGAIN"  value="-250"/>
-    <define name="PHI_DGAIN"  value="-200"/>
+    <define name="PHI_PGAIN"  value="-410"/>
+    <define name="PHI_DGAIN"  value="-300"/>
     <define name="PHI_IGAIN"  value="-150"/>
 
-    <define name="THETA_PGAIN"  value="-250"/>
-    <define name="THETA_DGAIN"  value="-200"/>
+    <define name="THETA_PGAIN"  value="-410"/>
+    <define name="THETA_DGAIN"  value="-300"/>
     <define name="THETA_IGAIN"  value="-150"/>
 
     <define name="PSI_PGAIN"  value="-900"/>
@@ -180,8 +180,8 @@
 
 
  <section name="GUIDANCE_H" prefix="GUIDANCE_H_">
-   <define name="PGAIN" value="-100"/>
-   <define name="DGAIN" value="-100"/>
+   <define name="PGAIN" value="-5"/>
+   <define name="DGAIN" value="-15"/>
    <define name="IGAIN" value="-0"/>
  </section>
 
