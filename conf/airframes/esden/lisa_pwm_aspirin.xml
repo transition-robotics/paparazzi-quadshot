@@ -225,6 +225,8 @@
 	    <configure name="GPS_BAUD"    value="B57600"/>
     </subsystem>
     <subsystem name="ahrs"          type="cmpl"/>
+    <subsystem name="lisa_passthrough_gps"/>
+    <target name="overo_gps_test" board="lisa_l_1.1"/>
   </firmware>
 
   <firmware name="lisa_l_test_progs">
