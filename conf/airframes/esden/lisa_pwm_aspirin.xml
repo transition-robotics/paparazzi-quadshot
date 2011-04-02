@@ -167,15 +167,15 @@
    <define name="MIN_ERR_ZD"  value="SPEED_BFP_OF_REAL(-10.)"/>
    <define name="MAX_ERR_ZD"  value="SPEED_BFP_OF_REAL( 10.)"/>
    <define name="MAX_SUM_ERR" value="2000000"/>
-   <define name="HOVER_KP"    value="-150"/>
-   <define name="HOVER_KD"    value="-80"/>
+   <define name="HOVER_KP"    value="-140"/>
+   <define name="HOVER_KD"    value="-110"/>
    <!--define name="HOVER_KI"    value="-100"/-->
-   <define name="HOVER_KI"    value="0"/>
+   <define name="HOVER_KI"    value="-40"/>
    <!-- 1.5m/s for full stick : BOOZ_SPEED_I_OF_F(1.5) / (MAX_PPRZ/2) -->
    <define name="RC_CLIMB_COEF" value ="163"/>
    <!-- BOOZ_SPEED_I_OF_F(1.5) * 20% -->
    <define name="RC_CLIMB_DEAD_BAND" value ="160000"/>
-   <define name="INV_M" value ="0.15"/>
+   <define name="INV_M" value ="0.23"/>
   </section>
 
 
