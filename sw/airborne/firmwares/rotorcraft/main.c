@@ -150,12 +150,13 @@ static inline void on_overo_link_msg_received(void)
 
    lla.lat = INT32_RAD_OF_DEG(EM7RAD_OF_RAD(overo_link.down.msg.lat));
    lla.lon = INT32_RAD_OF_DEG(EM7RAD_OF_RAD(overo_link.down.msg.lon));
-   lla.alt = DL_MOVE_WP_alt(dl_buffer) - ins_ltp_def.hmsl + ins_ltp_def.lla.alt;
+   //lla.alt = DL_MOVE_WP_alt(dl_buffer) - ins_ltp_def.hmsl + ins_ltp_def.lla.alt;
    enu_of_lla_point_i(&enu,&ins_ltp_def,&lla);
    enu.x = POS_BFP_OF_REAL(enu.x)/100;
    enu.y = POS_BFP_OF_REAL(enu.y)/100;
    enu.z = POS_BFP_OF_REAL(enu.z)/100;
    VECT3_ASSIGN(waypoints[wp_id], enu.x, enu.y, enu.z);
+   waypoints[wp_id].z = waypoints[WP_STDBY].z;
    DOWNLINK_SEND_WP_MOVED_ENU(DefaultChannel, &wp_id, &enu.x, &enu.y, &enu.z);
 }
 
