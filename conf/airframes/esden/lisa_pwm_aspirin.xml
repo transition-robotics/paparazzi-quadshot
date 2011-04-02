@@ -180,7 +180,7 @@
 
 
  <section name="GUIDANCE_H" prefix="GUIDANCE_H_">
-   <define name="PGAIN" value="-5"/>
+   <define name="PGAIN" value="-50"/>
    <define name="DGAIN" value="-15"/>
    <define name="IGAIN" value="-0"/>
  </section>
