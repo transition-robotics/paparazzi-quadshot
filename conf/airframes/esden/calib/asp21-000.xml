@@ -25,8 +25,8 @@
     <define name="MAG_Y_SENS" value="3.43965799165" integer="16"/>
     <define name="MAG_Z_SENS" value="3.98584774393" integer="16"/>
 
-    <define name="BODY_TO_IMU_PHI"   value="RadOfDeg(   0. )"/>
+    <!--define name="BODY_TO_IMU_PHI"   value="RadOfDeg(   0. )"/>
     <define name="BODY_TO_IMU_THETA" value="RadOfDeg(   0. )"/>
-    <define name="BODY_TO_IMU_PSI"   value="RadOfDeg(  45. )"/>
+    <define name="BODY_TO_IMU_PSI"   value="RadOfDeg(  45. )"/-->
   </section>
 </airframe>

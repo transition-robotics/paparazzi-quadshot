@@ -24,6 +24,7 @@
  */
 
 #include "generated/airframe.h"
+#include "firmwares/rotorcraft/autopilot.h"
 #include "firmwares/rotorcraft/actuators.h"
 #include "firmwares/rotorcraft/commands.h"
 #include "subsystems/radio_control.h"

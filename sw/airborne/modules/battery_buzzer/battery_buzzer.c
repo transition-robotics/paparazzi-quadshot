@@ -31,6 +31,8 @@
 #include "generated/airframe.h"
 #include "subsystems/electrical.h"
 
+#define LOW_BAT_LEVEL 10
+
 /* initialises GPIO pins */
 void battery_buzzer_init(void) {
   /* initialise peripheral clock for port C */

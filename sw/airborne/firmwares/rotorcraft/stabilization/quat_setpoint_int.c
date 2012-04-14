@@ -28,6 +28,8 @@
 #define DEADBAND_EXCEEDED(VARIABLE, VALUE) ((VARIABLE > VALUE) || (VARIABLE < -VALUE))
 #define APPLY_DEADBAND(VARIABLE, VALUE) (DEADBAND_EXCEEDED(VARIABLE, VALUE) ? VARIABLE : 0.0)
 
+#define RC_UPDATE_FREQ 40
+
 // reset to "hover" setpoint
 static void reset_sp_quat(int32_t _psi, int32_t _theta, struct Int32Quat *initial)
 {

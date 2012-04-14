@@ -76,7 +76,7 @@ uint16_t autopilot_flight_time;
 void autopilot_init(void) {
   autopilot_mode = AP_MODE_KILL;
   autopilot_motors_on = FALSE;
-  autopilot_rc_unkilled_startup = FALSE;
+  autopilot_rc_unkilled_startup = TRUE;
   autopilot_first_boot = TRUE;
   autopilot_mode1_kill = TRUE;
   autopilot_in_flight = FALSE;
@@ -308,6 +308,8 @@ static inline void autopilot_check_motors_on( void ) {
 		  autopilot_mode1_kill = radio_control.values[RADIO_MODE]<0;
 		}
 	}
+void autopilot_set_motors_on(bool_t motors_on) {
+}
 #elif defined AUTOPILOT_THROTTLE_INSTANT_START_WITH_SAFETIES
 static inline void autopilot_check_motors_on( void ) {
 	if (!THROTTLE_STICK_DOWN() && !ahrs_is_aligned())
@@ -328,10 +330,14 @@ static inline void autopilot_check_motors_on( void ) {
 		  autopilot_mode1_kill = radio_control.values[RADIO_MODE]<0;
 		}
 	}
+void autopilot_set_motors_on(bool_t motors_on) {
+}
 #elif defined AUTOPILOT_INSTANT_START
 static inline void autopilot_check_motors_on( void ) {
 	autopilot_motors_on=radio_control.values[RADIO_KILL_SWITCH]>0 && ahrs_is_aligned();
 	}
+void autopilot_set_motors_on(bool_t motors_on) {
+}
 #else
 /** Set motors ON or OFF and change the status of the check_motors state machine
  */
