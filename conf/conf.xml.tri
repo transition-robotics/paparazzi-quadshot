@@ -35,7 +35,7 @@
 		name="QS4_LIA"
 		ac_id="163"
 		airframe="airframes/esden/qs4_lia_a21.xml"
-		radio="radios/FSCT6B.xml"
+		radio="radios/QS1RX6.xml"
 		telemetry="telemetry/telemetry_qs4.xml"
 		flight_plan="flight_plans/dummy.xml"
 		settings=" settings/settings_qs4.xml"
