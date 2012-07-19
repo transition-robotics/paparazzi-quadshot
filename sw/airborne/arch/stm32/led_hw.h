@@ -93,13 +93,33 @@ extern uint8_t led_status[NB_LED];
     GPIO_Init(GPIOA, &GPIO_InitStructure);			\
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;			\
     GPIO_Init(GPIOC, &GPIO_InitStructure);			\
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;			\
+    GPIO_Init(GPIOC, &GPIO_InitStructure);			\
     for(uint8_t i=0; i<NB_LED; i++)				\
       led_status[i] = FALSE;					\
   }
 
-#define LED_ON(i)  { led_status[i] = TRUE;  }
-#define LED_OFF(i) { led_status[i] = FALSE; }
-#define LED_TOGGLE(i) {led_status[i] = !led_status[i];}
+#define LED_ON(i)  {				\
+	if ( i < NB_LED ) {			\
+		led_status[i] = TRUE;		\
+	} else {				\
+		GPIOC->BSRR = GPIO_Pin_5;	\
+	}					\
+	}
+#define LED_OFF(i) {				\
+	if ( i < NB_LED ) {			\
+		led_status[i] = FALSE;		\
+	} else {				\
+		GPIOC->BRR = GPIO_Pin_5;	\
+	}					\
+	}
+#define LED_TOGGLE(i) {					\
+	if ( i < NB_LED ) {				\
+		led_status[i] = !led_status[i];		\
+	} else {					\
+		GPIOC->ODR ^= GPIO_Pin_5;		\
+	}						\
+	}
 
 #define LED_PERIODIC() {					\
     for (uint8_t cnt = 0; cnt < NB_LED; cnt++) {		\
