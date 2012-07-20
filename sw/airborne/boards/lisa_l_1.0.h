@@ -44,8 +44,8 @@
 	    (gpio).GPIO_Pin  = GPIO_Pin_1 | GPIO_Pin_0; \
 	    (gpio).GPIO_Mode = GPIO_Mode_AIN;           \
 	    GPIO_Init(GPIOB, (&gpio));                  \
-	    (gpio).GPIO_Pin  = GPIO_Pin_3; \
-	    GPIO_Init(GPIOC, (&gpio));                  \
+	    (gpio).GPIO_Pin  = GPIO_Pin_0; \
+	    GPIO_Init(GPIOA, (&gpio));                  \
 }
 #endif // ADC1_GPIO_INIT
 #endif // USE_AD1
