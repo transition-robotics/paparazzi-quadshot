@@ -46,9 +46,15 @@
 #define SLAVE_RECEIVER_PULSES 6
 
 /* The line that is pulled low at power up to initiate the bind process */
+#ifndef BIND_PIN
 #define BIND_PIN GPIO_Pin_3
+#endif
+#ifndef BIND_PIN_PORT
 #define BIND_PIN_PORT GPIOC
+#endif
+#ifndef BIND_PIN_PERIPH
 #define BIND_PIN_PERIPH RCC_APB2Periph_GPIOC
+#endif
 
 #define TIM_FREQ_1000000 1000000
 #define TIM_TICS_FOR_100us 100

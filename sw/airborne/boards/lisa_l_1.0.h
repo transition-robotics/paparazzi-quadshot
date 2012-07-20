@@ -10,6 +10,11 @@
 #define STM32_RCC_MODE RCC_HSE_Bypass
 #define STM32_PLL_MULT RCC_PLLMul_9
 
+/* Spektrum bind pin definition */
+#define BIND_PIN GPIO_Pin_1
+#define BIND_PIN_PORT GPIOA
+#define BIND_PIN_PERIPH RCC_APB2Periph_GPIOA
+
 /* Onboard LEDs */
 #define LED_1_BANK
 #define LED_STP08
