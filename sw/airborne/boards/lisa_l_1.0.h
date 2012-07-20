@@ -38,6 +38,18 @@
 #define BOARD_ADC_CHANNEL_3 ADC_Channel_0
 #define BOARD_ADC_CHANNEL_4 ADC_Channel_15
 
+#ifdef USE_AD1
+#ifndef ADC1_GPIO_INIT
+#define ADC1_GPIO_INIT(gpio) {                  \
+	    (gpio).GPIO_Pin  = GPIO_Pin_1 | GPIO_Pin_0; \
+	    (gpio).GPIO_Mode = GPIO_Mode_AIN;           \
+	    GPIO_Init(GPIOB, (&gpio));                  \
+	    (gpio).GPIO_Pin  = GPIO_Pin_3; \
+	    GPIO_Init(GPIOC, (&gpio));                  \
+}
+#endif // ADC1_GPIO_INIT
+#endif // USE_AD1
+
 #define BOARD_HAS_BARO
 
 #endif /* CONFIG_LISA_L_1_0_H */

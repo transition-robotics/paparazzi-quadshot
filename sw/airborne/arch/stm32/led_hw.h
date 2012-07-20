@@ -94,6 +94,7 @@ extern uint8_t led_status[NB_LED];
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;			\
     GPIO_Init(GPIOC, &GPIO_InitStructure);			\
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;			\
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		\
     GPIO_Init(GPIOC, &GPIO_InitStructure);			\
     for(uint8_t i=0; i<NB_LED; i++)				\
       led_status[i] = FALSE;					\
