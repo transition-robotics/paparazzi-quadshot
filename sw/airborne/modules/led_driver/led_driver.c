@@ -50,22 +50,34 @@ void led_driver_periodic(void) {
     RunXTimesEvery(130, 130, 10, 6, {LED_TOGGLE(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_first_boot){
-    RunXTimesEvery(0, 120, 5, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 120, 5, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(5, 120, 10, 2, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 120, 10, 2, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation_mode){
-    RunXTimesEvery(0, 240, 20, 2, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 240, 20, 2, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(20, 240, 40, 1, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 240, 40, 1, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation_throttle){
-    RunXTimesEvery(0, 240, 20, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 240, 20, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(20, 240, 40, 2, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 240, 40, 2, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation_roll){
-    RunXTimesEvery(0, 240, 20, 6, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 240, 20, 6, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(20, 240, 40, 3, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 240, 40, 3, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation_pitch){
-    RunXTimesEvery(0, 240, 20, 8, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 240, 20, 8, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(20, 240, 40, 4, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 240, 40, 4, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation_yaw){
-    RunXTimesEvery(0, 240, 20,10, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    //RunXTimesEvery(0, 240, 20,10, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(20, 240, 40, 5, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 240, 40, 5, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_safety_violation){
     RunOnceEvery(5, {LED_TOGGLE(AHRS_ALIGNER_LED);});
