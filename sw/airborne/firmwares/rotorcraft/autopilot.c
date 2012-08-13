@@ -41,6 +41,11 @@ bool_t   autopilot_rc_unkilled_startup; //toytronics: keep track of Tx on motor 
 bool_t   autopilot_first_boot; //toytronics: determine first power up for ahrs time delay
 bool_t   autopilot_mode1_kill; //toytronics: keep track of whether motor shutoff occurred in mode 1 
 bool_t   autopilot_safety_violation; //safety condition violated during startup attempt.
+bool_t   autopilot_safety_violation_mode; //safety condition violated during startup attempt, not in mode 1.
+bool_t   autopilot_safety_violation_throttle; //safety condition violated during startup attempt, not zero throttle.
+bool_t   autopilot_safety_violation_roll; //safety condition violated during startup attempt, roll stick not centered.
+bool_t   autopilot_safety_violation_pitch; //safety condition violated during startup attempt, pitch stick not centered.
+bool_t   autopilot_safety_violation_yaw; //safety condition violated during startup attempt, yaw stick not centered.
 
 bool_t   autopilot_in_flight;
 uint32_t autopilot_motors_on_counter;
@@ -76,6 +81,11 @@ void autopilot_init(void) {
   autopilot_first_boot = TRUE;
   autopilot_mode1_kill = TRUE;
   autopilot_safety_violation = FALSE;
+  autopilot_safety_violation_mode = FALSE;
+  autopilot_safety_violation_throttle = FALSE;
+  autopilot_safety_violation_roll = FALSE;
+  autopilot_safety_violation_pitch = FALSE;
+  autopilot_safety_violation_yaw = FALSE;
   autopilot_in_flight = FALSE;
   kill_throttle = ! autopilot_motors_on;
   autopilot_motors_on_counter = 0;
@@ -316,9 +326,24 @@ static inline void autopilot_check_motors_on( void ) {
 		autopilot_motors_on=!THROTTLE_STICK_DOWN() && radio_control.values[RADIO_MODE] < -4000 && YAW_STICK_CENTERED() && PITCH_STICK_CENTERED() && ROLL_STICK_CENTERED() && ahrs_is_aligned() && !autopilot_rc_unkilled_startup;
 		  if (!autopilot_motors_on && ahrs_is_aligned() && (radio_control.values[RADIO_MODE] > -4000 || !YAW_STICK_CENTERED() || !PITCH_STICK_CENTERED() || !ROLL_STICK_CENTERED() || autopilot_rc_unkilled_startup)){
 		    autopilot_safety_violation = TRUE;
+		    if (radio_control.values[RADIO_MODE] > -4000) {autopilot_safety_violation_mode = TRUE;}
+		    else { autopilot_safety_violation_mode = FALSE;}
+		    if (autopilot_rc_unkilled_startup) autopilot_safety_violation_throttle = TRUE;
+		    else { autopilot_safety_violation_throttle = FALSE;}
+		    if (!ROLL_STICK_CENTERED()) autopilot_safety_violation_roll = TRUE;
+		    else { autopilot_safety_violation_roll = FALSE;}
+		    if (!PITCH_STICK_CENTERED()) autopilot_safety_violation_pitch = TRUE;
+		    else { autopilot_safety_violation_pitch = FALSE;}
+		    if (!YAW_STICK_CENTERED()) autopilot_safety_violation_yaw = TRUE;
+		    else { autopilot_safety_violation_yaw = FALSE;}
 		    }
 		  else{
 		    autopilot_safety_violation = FALSE;
+		    autopilot_safety_violation_mode = FALSE;
+		    autopilot_safety_violation_throttle = FALSE;
+		    autopilot_safety_violation_roll = FALSE;
+		    autopilot_safety_violation_pitch = FALSE;
+		    autopilot_safety_violation_yaw = FALSE;
 		    }
 		}
 	else{ 
