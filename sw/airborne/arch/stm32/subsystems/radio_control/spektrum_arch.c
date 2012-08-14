@@ -686,6 +686,11 @@ void radio_control_spektrum_try_bind(void) {
   if (GPIO_ReadInputDataBit(BIND_PIN_PORT, BIND_PIN))
     return;
 
+  /* Indicate that we went into the spektrum binding mode. */
+#ifdef RADIO_CONTROL_SPEKTRUM_BIND_LED
+  LED_ON(RADIO_CONTROL_SPEKTRUM_BIND_LED);
+#endif
+
   /* bind initiated, initialise the delay timer */
   SpektrumDelayInit();
 
