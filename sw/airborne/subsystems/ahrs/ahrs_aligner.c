@@ -69,41 +69,51 @@ void ahrs_aligner_run(void) {
 #endif
 
   if (samples_idx >= SAMPLES_NB) {
-    int32_t avg_ref_sensor = accel_sum.z;
-    if ( avg_ref_sensor >= 0)
-      avg_ref_sensor += SAMPLES_NB / 2;
-    else
-      avg_ref_sensor -= SAMPLES_NB / 2;
-    avg_ref_sensor /= SAMPLES_NB;
+    for (int i=SAMPLES_NB/4; i<3*SAMPLES_NB/4; i++) {
+      if (ref_sensor_samples[i] == ref_sensor_samples[i-1]) {
+	ahrs_aligner.status = AHRS_ALIGNER_FROZEN;
+	}
+      else {
+        ahrs_aligner.status = AHRS_ALIGNER_RUNNING;
+        }
+      }
+    if (ahrs_aligner.status != AHRS_ALIGNER_FROZEN) {
+	    int32_t avg_ref_sensor = accel_sum.z;
+	    if ( avg_ref_sensor >= 0)
+	      avg_ref_sensor += SAMPLES_NB / 2;
+	    else
+	      avg_ref_sensor -= SAMPLES_NB / 2;
+	    avg_ref_sensor /= SAMPLES_NB;
 
-    ahrs_aligner.noise = 0;
-    int i;
-    for (i=0; i<SAMPLES_NB; i++) {
-      int32_t diff = ref_sensor_samples[i] - avg_ref_sensor;
-      ahrs_aligner.noise += abs(diff);
-    }
+	    ahrs_aligner.noise = 0;
+	    int i;
+	    for (i=0; i<SAMPLES_NB; i++) {
+	      int32_t diff = ref_sensor_samples[i] - avg_ref_sensor;
+	      ahrs_aligner.noise += abs(diff);
+	    }
 
-    RATES_SDIV(ahrs_aligner.lp_gyro,  gyro_sum,  SAMPLES_NB);
-    VECT3_SDIV(ahrs_aligner.lp_accel, accel_sum, SAMPLES_NB);
-    VECT3_SDIV(ahrs_aligner.lp_mag,   mag_sum,   SAMPLES_NB);
+	    RATES_SDIV(ahrs_aligner.lp_gyro,  gyro_sum,  SAMPLES_NB);
+	    VECT3_SDIV(ahrs_aligner.lp_accel, accel_sum, SAMPLES_NB);
+	    VECT3_SDIV(ahrs_aligner.lp_mag,   mag_sum,   SAMPLES_NB);
 
-    INT_RATES_ZERO(gyro_sum);
-    INT_VECT3_ZERO(accel_sum);
-    INT_VECT3_ZERO(mag_sum);
-    samples_idx = 0;
+	    INT_RATES_ZERO(gyro_sum);
+	    INT_VECT3_ZERO(accel_sum);
+	    INT_VECT3_ZERO(mag_sum);
+	    samples_idx = 0;
 
-    if (ahrs_aligner.noise < LOW_NOISE_THRESHOLD)
-      ahrs_aligner.low_noise_cnt++;
-    else
-      if ( ahrs_aligner.low_noise_cnt > 0)
-        ahrs_aligner.low_noise_cnt--;
+	    if (ahrs_aligner.noise < LOW_NOISE_THRESHOLD)
+	      ahrs_aligner.low_noise_cnt++;
+	    else
+	      if ( ahrs_aligner.low_noise_cnt > 0)
+		ahrs_aligner.low_noise_cnt--;
 
-    if (ahrs_aligner.low_noise_cnt > LOW_NOISE_TIME) {
-      ahrs_aligner.status = AHRS_ALIGNER_LOCKED;
-#ifdef AHRS_ALT_ALIGNER_LED
-      LED_ON(AHRS_ALT_ALIGNER_LED);
-#endif
-    }
+	    if (ahrs_aligner.low_noise_cnt > LOW_NOISE_TIME) {
+	      ahrs_aligner.status = AHRS_ALIGNER_LOCKED;
+	#ifdef AHRS_ALT_ALIGNER_LED
+	      LED_ON(AHRS_ALT_ALIGNER_LED);
+	#endif
+	    }
+      }
   }
 
 }

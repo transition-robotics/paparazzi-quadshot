@@ -30,6 +30,7 @@
 #define AHRS_ALIGNER_UNINIT  0
 #define AHRS_ALIGNER_RUNNING 1
 #define AHRS_ALIGNER_LOCKED  2
+#define AHRS_ALIGNER_FROZEN  3
 
 struct AhrsAligner {
   struct Int32Rates lp_gyro;
