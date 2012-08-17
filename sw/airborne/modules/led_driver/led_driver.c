@@ -25,6 +25,7 @@
 #include "subsystems/electrical.h"
 #include "subsystems/radio_control.h"
 #include "autopilot.h"
+#include "subsystems/ahrs/ahrs_aligner.h"
 
 #include "led_driver.h"
 
@@ -48,6 +49,11 @@ void led_driver_periodic(void) {
     //RunXTimesEvery(300, 5, 9, {LED_TOGGLE(AHRS_ALIGNER_LED);});
     RunXTimesEvery(0, 60, 5, 7, {LED_TOGGLE(AHRS_ALIGNER_LED);});
     RunXTimesEvery(130, 130, 10, 6, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    }
+  else if (ahrs_aligner.status == AHRS_ALIGNER_FROZEN){
+    //RunXTimesEvery(0, 120, 5, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(5, 200, 10, 20, {LED_ON(AHRS_ALIGNER_LED);});
+    RunXTimesEvery(0, 200, 10, 20, {LED_OFF(AHRS_ALIGNER_LED);});
     }
   else if (autopilot_first_boot){
     //RunXTimesEvery(0, 120, 5, 4, {LED_TOGGLE(AHRS_ALIGNER_LED);});
