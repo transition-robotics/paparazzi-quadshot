@@ -50,6 +50,7 @@ bool_t   autopilot_safety_violation_yaw; //safety condition violated during star
 bool_t   autopilot_in_flight;
 uint32_t autopilot_motors_on_counter;
 uint32_t autopilot_in_flight_counter;
+uint32_t autopilot_mode1_kill_counter;
 uint8_t  autopilot_check_motor_status;
 bool_t   kill_throttle;
 bool_t   autopilot_rc;
@@ -74,6 +75,10 @@ uint16_t autopilot_flight_time;
 #define STATUS_M_ON_STICK_PUSHED    4
 #define STATUS_STOP_MOTORS          5
 
+#ifndef AUTOPILOT_STARTUP_DELAY
+#define AUTOPILOT_STARTUP_DELAY 512
+#endif
+
 void autopilot_init(void) {
   autopilot_mode = AP_MODE_KILL;
   autopilot_motors_on = FALSE;
@@ -90,6 +95,7 @@ void autopilot_init(void) {
   kill_throttle = ! autopilot_motors_on;
   autopilot_motors_on_counter = 0;
   autopilot_in_flight_counter = 0;
+  autopilot_mode1_kill_counter = 0;
   autopilot_check_motor_status = STATUS_MOTORS_OFF;
   autopilot_mode_auto2 = MODE_AUTO2;
   autopilot_detect_ground = FALSE;
@@ -295,7 +301,7 @@ static inline void autopilot_check_motors_on( void ) {
 		if (radio_control.values[RADIO_KILL_SWITCH]<0 && ahrs_is_aligned() && !autopilot_first_boot && radio_control.values[RADIO_MODE] < -4000)
 			autopilot_rc_unkilled_startup = FALSE;
 	if (autopilot_first_boot && ahrs_is_aligned()){
-		RunOnceAfter(512,{autopilot_first_boot = FALSE;});
+		RunOnceAfter(AUTOPILOT_STARTUP_DELAY,{autopilot_first_boot = FALSE;});
 		}
 	if (!autopilot_motors_on && !autopilot_first_boot && autopilot_mode1_kill){
 		autopilot_motors_on=radio_control.values[RADIO_KILL_SWITCH]>0 && radio_control.values[RADIO_MODE] < -4000 && THROTTLE_STICK_DOWN() && YAW_STICK_CENTERED() && PITCH_STICK_CENTERED() && ROLL_STICK_CENTERED() && ahrs_is_aligned() && !autopilot_rc_unkilled_startup;
@@ -320,9 +326,9 @@ static inline void autopilot_check_motors_on( void ) {
 		if (THROTTLE_STICK_DOWN() && ahrs_is_aligned() && !autopilot_first_boot && radio_control.values[RADIO_MODE] < -4000)
 			autopilot_rc_unkilled_startup = FALSE;
 	if (autopilot_first_boot && ahrs_is_aligned()){
-		RunOnceAfter(2048,{autopilot_first_boot = FALSE;});
-		}	
-	if (!autopilot_motors_on && !autopilot_first_boot && autopilot_mode1_kill){
+		RunOnceAfter(AUTOPILOT_STARTUP_DELAY,{autopilot_first_boot = FALSE;});
+		}
+	if (!autopilot_motors_on && !autopilot_first_boot && autopilot_mode1_kill && autopilot_mode1_kill_counter>512){
 		autopilot_motors_on=!THROTTLE_STICK_DOWN() && radio_control.values[RADIO_MODE] < -4000 && YAW_STICK_CENTERED() && PITCH_STICK_CENTERED() && ROLL_STICK_CENTERED() && ahrs_is_aligned() && !autopilot_rc_unkilled_startup;
 		  if (!autopilot_motors_on && ahrs_is_aligned() && (radio_control.values[RADIO_MODE] > -4000 || !YAW_STICK_CENTERED() || !PITCH_STICK_CENTERED() || !ROLL_STICK_CENTERED() || autopilot_rc_unkilled_startup)){
 		    autopilot_safety_violation = TRUE;
@@ -350,6 +356,10 @@ static inline void autopilot_check_motors_on( void ) {
 		autopilot_motors_on=!THROTTLE_STICK_DOWN() && ahrs_is_aligned() && !autopilot_rc_unkilled_startup;
 		if(autopilot_motors_on)
 		  autopilot_mode1_kill = radio_control.values[RADIO_MODE]<-4000;
+		if (autopilot_mode1_kill && !autopilot_motors_on)
+		  autopilot_mode1_kill_counter++;
+		else
+		  autopilot_mode1_kill_counter=0;
 		}
 	}
 #elif defined AUTOPILOT_INSTANT_START
