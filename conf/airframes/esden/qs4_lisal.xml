@@ -1,6 +1,10 @@
 <!-- this is a synerani vehicle equiped with Lisa/M and generic china pwm motor controllers -->
 <!-- Copyright (C) 2011, Pranay Sinha, the Quadshot Project -->
 
+<!--**************************************************************************************-->
+<!--PLEASE NOTE THE SWITCHED ORDER OF AILEVON RIGHT AND LEFT WHEN COMPARED TO OTHER QS A/C-->
+<!--**************************************************************************************-->
+
 <airframe name="qs4_lisal">
 
   <servos min="0" neutral="0" max="0xff">
@@ -8,8 +12,8 @@
     <servo name="A2"            no="1" min="1000" neutral="1000" max="2000"/>
     <servo name="B1"            no="2" min="1000" neutral="1000" max="2000"/>
     <servo name="B2"            no="3" min="1000" neutral="1000" max="2000"/>
-    <servo name="AILEVON_LEFT"  no="4" min="1000" neutral="1500" max="2000"/>
-    <servo name="AILEVON_RIGHT" no="5" min="1000" neutral="1500" max="2000"/>
+    <servo name="AILEVON_RIGHT" no="4" min="1000" neutral="1500" max="2000"/>
+    <servo name="AILEVON_LEFT"  no="5" min="1000" neutral="1500" max="2000"/>
     <servo name="CAMERA_MOUNT"  no="6" min="1700" neutral="1500" max="1000"/>
   </servos>
 
@@ -32,6 +36,7 @@
     <define name="AUTOPILOT_KILL_WITHOUT_AHRS"  value="TRUE"/>
     <define name="AUTOPILOT_THROTTLE_INSTANT_START_WITH_SAFETIES"  value="TRUE"/>
     <define name="AUTOPILOT_LOBATT_BLINK"  value="TRUE"/>
+    <define name="AUTOPILOT_STARTUP_DELAY"  value="2048"/>
     <!--This is to enable a wing waggle at specified low battery voltage.-->
     <define name="LOBATT_WING_WAGGLE" value="TRUE"/>
     <define name="TOYTRONICS" value="TRUE"/>
@@ -238,6 +243,7 @@
       <define name="SERVO_HZ" value="400"/>
       <define name="SERVO_HZ_SECONDARY" value="40"/>
       <define name="RADIO_MODE" value="RADIO_FLAP"/>
+      <define name="RADIO_EXPO" value="RADIO_AUX2"/>
       <!--define name="RADIO_KILL_SWITCH" value="RADIO_GEAR"/-->
       <define name="RADIO_CONTROL_SPEKTRUM_SIGNS" value="\{1,1,-1,1,-1,-1,-1,1,1,1,1,1\}"/>
       <define name = "RADIO_CONTROL_SPEKTRUM_SECONDARY_PORT" value = "UART5"/>
