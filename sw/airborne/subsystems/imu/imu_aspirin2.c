@@ -143,11 +143,11 @@ static void configure(void)
 #  endif
 #endif
 
-  // Reset the analog and digital signal paths of the gyroscope, accelerometer,
+/*  // Reset the analog and digital signal paths of the gyroscope, accelerometer,
   // and temperature sensors.
   mpu_set(MPU60X0_REG_SIGNAL_PATH_RESET,
 	  0x07);
-
+*/
   // MPU60X0_REG_CONFIG
   mpu_set( MPU60X0_REG_CONFIG,
            (2 << 3) | 			// Fsync / ext sync on gyro X (bit 3->6)
