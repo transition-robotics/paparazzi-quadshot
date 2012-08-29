@@ -37,6 +37,7 @@
     <define name="AUTOPILOT_THROTTLE_INSTANT_START_WITH_SAFETIES"  value="TRUE"/>
     <define name="AUTOPILOT_LOBATT_BLINK"  value="TRUE"/>
     <define name="AUTOPILOT_STARTUP_DELAY"  value="2048"/>
+    <define name="MPU_STARTUP_DELAY"  value="16000000"/>
     <!--This is to enable a wing waggle at specified low battery voltage.-->
     <define name="LOBATT_WING_WAGGLE" value="TRUE"/>
     <define name="TOYTRONICS" value="TRUE"/>
