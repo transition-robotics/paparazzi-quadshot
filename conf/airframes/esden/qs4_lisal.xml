@@ -226,7 +226,7 @@
  </section>
 
  <include href="conf/airframes/esden/toytronics/gains/QS4M2_inner_8x4_5.xml"/>
- <include href="conf/airframes/esden/toytronics/setpoint/QS4_setpoint.xml"/>
+ <include href="conf/airframes/esden/toytronics/setpoint/QS4L_setpoint.xml"/>
  <include href="conf/airframes/esden/camera_mount.xml"/>
 
  <modules main_freq="512">
