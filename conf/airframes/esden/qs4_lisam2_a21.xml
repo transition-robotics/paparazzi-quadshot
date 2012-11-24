@@ -238,7 +238,8 @@
       <define name="SERVO_HZ" value="400"/>
       <define name="SERVO_HZ_SECONDARY" value="40"/>
       <define name="RADIO_MODE" value="RADIO_FLAP"/>
-      <!--define name="RADIO_KILL_SWITCH" value="RADIO_GEAR"/-->
+      <define name="RADIO_EXPO" value="RADIO_GEAR"/>
+      <define name="RADIO_KILL_SWITCH" value="RADIO_AUX4"/>
       <define name="RADIO_CONTROL_SPEKTRUM_SIGNS" value="\{1,1,-1,1,-1,-1,-1,1,1,1,1,1\}"/>
       <define name = "RADIO_CONTROL_SPEKTRUM_SECONDARY_PORT" value = "UART5"/>
       <define name = "OVERRIDE_UART5_IRQ_HANDLER"/>
@@ -251,7 +252,11 @@
 
     <subsystem name="imu"           type="aspirin_v2.0"/>
     <configure name="PERIODIC_FREQUENCY" value="512"/>
-    <subsystem name="gps"           type="ublox"/>
+    <subsystem name="gps"           type="ublox">
+      <configure name="GPS_PORT"         value="UART3"/>
+      <configure name="GPS_BAUD"         value="B38400"/>
+      <configure name="GPS_LED"         value="3"/>
+    </subsystem>
     <!--subsystem name="ahrs"          type="float_dcm"/-->
     <subsystem name="ahrs"          type="int_cmpl_quat"/>
     <!--define name="AHRS_GRAVITY_UPDATE_COORDINATED_TURN"/-->

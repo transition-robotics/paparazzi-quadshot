@@ -1360,7 +1360,10 @@
      <field name="yaw"      type="int16" unit="pprz"/>
      <field name="throttle" type="int16" unit="pprz"/>
      <field name="mode"     type="int16" unit="pprz"/>
+     <field name="expo"     type="int16" unit="pprz"/>
+     <field name="aux2"     type="int16" unit="pprz"/>
      <field name="aux3"     type="int16" unit="pprz"/>
+     <field name="aux4"     type="int16" unit="pprz"/>
      <field name="kill"     type="int16" unit="pprz"/>
      <field name="status"   type="uint8" values="OK|LOST|REALLY_LOST"/>
   </message>
