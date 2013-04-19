@@ -75,7 +75,11 @@ if __name__ == "__main__":
 		exit(-1)
 
 	for dev in devs:
-		dfudev = dfu.dfu_device(*dev)
+		try:
+			dfudev = dfu.dfu_device(*dev)
+		except:
+			print "Could not open dfu device."
+			continue
 		try:
 			man = dfudev.handle.getString(dfudev.dev.iManufacturer, 30)
 			product = dfudev.handle.getString(dfudev.dev.iProduct, 30)
