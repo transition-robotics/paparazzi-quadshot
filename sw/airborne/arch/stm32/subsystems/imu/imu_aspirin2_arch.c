@@ -38,6 +38,22 @@ void imu_aspirin2_arch_int_disable(void) {
 }
 
 void imu_aspirin2_arch_init(void) {
+
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /**************************************
+   * THIS FUNCTION IS NOT BEING CALLED!!!
+   **************************************
+   * As this function has everything
+   * commented out, CDW commented out the
+   * call to it from the arch independent
+   * aspirin driver. So be aware that
+   * if you add code here it will not get
+   * invoked!!!
+   *
+   * Sincirely yours Esden...
+   */
+
 /*
   GPIO_InitTypeDef GPIO_InitStructure;
   EXTI_InitTypeDef EXTI_InitStructure;
