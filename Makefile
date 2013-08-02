@@ -91,7 +91,7 @@ conf/%.xml :conf/%.xml.example
 
 conf/maps.xml: conf/maps.xml.example FORCE
 	-cd data/maps; $(MAKE)
-	if test ! -e $@; then cp $< $@; fi
+	cp $< $@; fi
 
 FORCE:
 
