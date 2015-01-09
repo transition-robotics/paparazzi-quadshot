@@ -116,6 +116,9 @@ extern uint8_t telemetry_mode_Main_DefaultChannel;
 				      &radio_control.values[RADIO_THROTTLE],        \
 				      &radio_control.values[RADIO_MODE],            \
 				      &radio_control.values[RADIO_EXPO],            \
+				      &radio_control.values[RADIO_AUX2],            \
+				      &radio_control.values[RADIO_AUX3],            \
+				      &radio_control.values[RADIO_AUX4],            \
 				      _kill_switch,                                        \
 				      &radio_control.status);}
 #else /* ! RADIO_CONTROL */
@@ -591,6 +594,7 @@ extern uint8_t telemetry_mode_Main_DefaultChannel;
   }
 
 #define PERIODIC_SEND_INS_REF(_chan) {				\
+    if (ins_ltp_initialised)                        \
     DOWNLINK_SEND_INS_REF(_chan,					\
 				&ins_ltp_def.ecef.x,		\
 				&ins_ltp_def.ecef.y,		\
